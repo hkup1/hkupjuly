@@ -238,6 +238,31 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     return NAME
 
+# ================= NAME =================
+
+async def name(update, context):
+
+    if is_restart(update.message.text):
+        return await restart(update, context)
+
+    user_name = update.message.text.strip()
+
+    if len(user_name) < 3:
+
+        await update.message.reply_text(
+            "❌ Please enter a valid name."
+        )
+
+        return NAME
+
+    context.user_data["name"] = user_name
+
+    await update.message.reply_text(
+        "Enter your age:"
+    )
+
+    return AGE
+
 # ================= FLOW =================
 
 async def age(update, context):
